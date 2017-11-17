@@ -1,21 +1,22 @@
-# vux
+# 腾放Vux/Vue封装开发包
 
-> vux base obj
+> TengFang Vux/Vue Package base vue + vux + vue-router + axios + vuex
 
-## Build Setup
+## 安装步骤
 
 ``` bash
-# install dependencies
-npm install
+# 克隆项目至本地
+git clone https://github.com/SawyerJames/vuxPro.git
 
-# serve with hot reload at localhost:8080
+# 进入项目根目录，进行包安装(此步骤建议直接使用npm安装，避免包安装不全)
+npm i || snpm i || cnpm i
+
+# 测试启动项目，端口号8081
 npm run dev
 
-# build for production with minification
+# 打包发布项目(默认版本基路径：/dist)
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+吉林省腾放科技有限公司 横向组发布 欢迎issue
