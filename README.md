@@ -1,4 +1,4 @@
-# 腾放Vux/Vue封装开发包
+# 腾放vuxPro封装开发包
 
 > TengFang Vux/Vue Package base vue + vux + vue-router + axios + vuex
 
