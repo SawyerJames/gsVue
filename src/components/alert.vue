@@ -26,7 +26,7 @@ export default {
   position: fixed;
   top: 30%;
   left: 50%;
-  margin-left: -6rem;
+  margin-left: -7rem;
 }
 
 .alert_title {
