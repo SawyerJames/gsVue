@@ -15,6 +15,8 @@ import {
     XSwitch,
     Scroller,
     Toast,
+    Tab,
+    TabItem,
     XAddress,
     ChinaAddressData,
     Actionsheet,
@@ -28,10 +30,22 @@ import {
     WechatPlugin,
     AppPlugin
 } from 'vux'
-
+// 自定义全局组件
+import errAlert from './components/errAlert'
+import alert from './components/alert'
+import loading from './components/loading'
+import general from './components/general'
 // 使用Vuex全局数据
 Vue.use(Vuex)
 
+// 全局注册组件
+// 信息提示弹窗，错误提示弹窗，预加载组件，小型头部组件
+Vue.component('alert',alert);
+Vue.component('errAlert',errAlert);
+Vue.component('loading',loading);
+Vue.component('tab', Tab);
+Vue.component('tab-item', TabItem);
+Vue.component('general', general);
 // 使用Vux框架
 Vue.use(DevicePlugin)
 Vue.use(ToastPlugin)
@@ -53,6 +67,10 @@ Vue.prototype.$tools = tools
 Vue.prototype.$store = new Vuex.Store({
     state: {
         // 存储全局变量
+        scan: Object,
+        userCheck: null,
+        registerChooseState: 0,
+        tutoriaWin: true
     }
 })
 
@@ -75,10 +93,6 @@ router.beforeEach(function (to, from, next) {
 router.afterEach(function (to) {
   store.commit('updateLoadingStatus', {isLoading: false})
 })
-
-// 添加Fastclick移除移动端点击延迟
-const FastClick = require('fastclick')
-FastClick.attach(document.body)
 
 //路由初始化/刷新程序返回路由
 router.onReady(function() {

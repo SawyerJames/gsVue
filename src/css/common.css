@@ -1,0 +1,252 @@
+  /*定制化css结构*/
+
+  select {
+    padding: 0 .2rem;
+  }
+
+  input {
+    padding: 0 .5rem;
+    font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    line-height: normal;
+  }
+  /*提示信息类*/
+
+  .sign {
+    font-size: .75rem;
+    color: #666666;
+    margin: 1rem 0;
+  }
+  /*无边框*/
+
+  .noBorder {
+    border: none !important;
+  }
+  /*遮罩层*/
+
+  .mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 999;
+  }
+  /*验证*/
+
+  .validate {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2rem;
+    background: #DD1919;
+    z-index: 1;
+    color: #fff;
+    line-height: 2rem;
+    text-align: center;
+    font-size: .875rem;
+  }
+  /*错误提示认证*/
+  .maskError{
+    z-index: 9998;
+  }
+  .errorWin {
+    color: #fff;
+    position: fixed;
+    width: 10rem;
+    height: 5rem;
+    background: none;
+    margin-left: -5rem;
+    left: 50%;
+    top: 30%;
+    border-radius: .5rem;
+    z-index: 9999;
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    justify-content: space-around;
+    -ms-align-items: center;
+    align-items: center;
+  }
+
+  .errorWin img {
+    width: 3rem;
+  }
+  /*boxSizing 可继承类*/
+
+  .borderBox {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  /*flex组 可继承类*/
+
+  .flexRow {
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .flexCol {
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .flexWrap {
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .flex_1 {
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
+  }
+  /*通用按钮类 可继承类 只定义基本样式，宽度不定义*/
+
+  .btn {
+    background: #3591cf;
+    border: none;
+    outline: none;
+    border-radius: .2rem;
+    color: #fff;
+    height: 2.5rem;
+    margin: 1rem auto;
+  }
+  /*弹窗样式*/
+
+  .confirmWinContnt {
+    width: 70%;
+    height: auto;
+    margin-left: -35%;
+    background: #fff;
+    border-radius: .25rem;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    z-index: 999;
+  }
+  /*弹窗头部*/
+
+  .confirmWin_Top {
+    height: 5rem;
+    width: 100%;
+    background: url(../assets/common/confirmBg.png);
+    background-size: contain;
+    border-radius: .25rem .25rem 0 0;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+  }
+
+  .confirmTopImg {
+    height: 2rem;
+    margin-bottom: .5rem;
+  }
+
+  .confirmTitle {
+    font-size: .875rem;
+    color: #fff;
+  }
+  /*弹窗中部*/
+
+  .confirmWin_middle {
+    height: auto;
+    width: 100%;
+    padding: .5rem 0;
+    font-size: 1rem;
+    background: #fff;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+  }
+
+  .confirmMsg {
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .confirmMsg p,
+  .confirmMsg a {
+    color: #F8624A;
+    margin: 2px 0;
+    font-size: .875rem;
+    text-decoration: none;
+  }
+  /*弹窗尾部*/
+
+  .confirmWin_footer {
+    width: 100%;
+    height: 3rem;
+    font-size: .875rem;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 .25rem .25rem;
+    justify-content: space-around;
+    -ms-align-items: center;
+    align-items: center;
+  }
+
+  .confirm_cel {
+    color: #999;
+  }
+
+  .confirm_sub {
+    color: #F8624A;
+  }
+  /*文本类通用样式*/
+
+  .txtContainer {
+    height: 100%;
+    width: 100%;
+  }
+
+  .txtContent {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 1rem 5% 5rem;
+    color: #333;
+  }
+
+  .txtContent p {
+    color: #333;
+    text-indent: 1.75rem;
+    font-size: .875rem;
+    margin-top: .5rem;
+  }

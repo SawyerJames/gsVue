@@ -10,7 +10,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     // 发布版本基路径
-    assetsPublicPath: '/dist',
+    assetsPublicPath: './',
     productionSourceMap: true,
     devtool: '#source-map',
     productionGzip: false,

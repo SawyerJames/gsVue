@@ -1,29 +1,46 @@
 <template>
   <div id="app">
-    <h1>腾放科技vue开发模板</h1>
+    <!-- APP路由挂载点 -->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
-
 <script>
-// 初始化&media样式文件，勿删
 import './css/reset.css'
 import './css/media.css'
+import './css/common.css'
 export default {
-  name: 'app'
+  name: 'app',
+  beforeCreate() {
+    document.title = '无感付';
+    // 同步ajax获取用户认证状态
+    let that = this;
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", process.env.API_HOST + 'index/check/IsSession', false);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        let data = xhr.responseText;
+        data = eval("(" + data + ")");
+        // 如果授权不成功，data.data不为false，跳转到Home页
+        if (data.data == false) {
+          window.location.href = process.env.API_HOST + 'index/auto';
+        }
+      }
+    };
+    // 进行ajax交互
+    xhr.send();
+  }
 }
 </script>
-
-<!-- vux less 默认reset样式，勿删 -->
 <style lang="less">
-  @import '~vux/src/styles/reset.less';
+@import '~vux/src/styles/reset.less';
 </style>
-
-<!-- vue app挂载点全局样式：
-  如果你擅长less编写，
-  也可以在上方style标签内添加样式 -->
 <style>
-  h1{
-    text-align: center;
-    margin-top: 2rem;
-  }
+#app {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  color: #333;
+}
 </style>
