@@ -92,7 +92,7 @@
     <div v-if="showScan">
       <div v-if="showScan" class="mask" @click="closeScan"></div>
       <div class="showScanContent flexCol">
-        <img v-if="scanImg" :src="scanImg" class="scanImg" alt="动态二维码">
+        <img v-if="scanImg" :src="scanImg" class="scanImg" alt="二维码获取失败">
         <span>二维码每5分钟自动刷新1次</span>
       </div>
     </div>
@@ -109,6 +109,18 @@
       </div>
       <div class="tutoriaFooter flexRow">
         <span @click="tutoriaWinBtn">我知道了</span>
+      </div>
+    </div>
+    <!-- 黑名单判断 -->
+    <div v-show="blackPayment" class="non_payment flexRow">
+      <div class="paymen">
+        <div class="paymen_pic flexRow">
+          <img src="../assets/pay/blackUser.png">
+        </div>
+        <p class="paymen_p">您有订单未支付，
+          <br> 暂停平台功能。请进行还款！
+        </p>
+        <div class="repayment" @click="go_non_payment">一键还款</div>
       </div>
     </div>
     <!-- 底部tapbar -->
@@ -156,7 +168,9 @@ export default {
       userCheck: 0,
       userInfo: {},
       // 注册人数
-      registerNumber: 2000
+      registerNumber: 2000,
+      // 黑名单
+      blackPayment: false
     }
   },
   created() {
@@ -223,9 +237,6 @@ export default {
             that.registerNumber = res.data.data.sumUser;
           }
         }
-      },
-      function error(err) {
-        return;
       }
     );
   },
@@ -252,6 +263,8 @@ export default {
         }, 2000);
       }
     );
+    // 判断是否为黑名单
+    this.blacklist();
   },
   methods: {
     // 跳转已开通业务
@@ -300,7 +313,17 @@ export default {
     getScan() {
       var that = this;
       // 获取动态二维码:追加随机数，用来动态获取，权重为10000
-      this.scanImg = this.$api.getScan + "?" + Math.random(0, 10000);
+      this.$tools.GetDataFromServer(
+        this,
+        this.$api.getScan + "?" + Math.random(0, 10000),
+        function success(res) {
+          // 获取成功
+          that.scanImg = res.data.data.qrcode;
+        },
+        function error(err) {
+          that.scanImg = '';
+        }
+      );
     },
     // alert弹窗：无活动
     noActivity() {
@@ -314,6 +337,24 @@ export default {
     // 跳至个人中心
     goCenter() {
       this.$router.replace('/center');
+    },
+    // 判断是否为黑名单
+    blacklist() {
+      let that = this;
+      this.$tools.GetDataFromServer(
+        this,
+        this.$api.checkBlackUser,
+        function success(res) {
+          // 接口获取成功
+          if (res.data.data.blackUser.status == 1) {
+            that.blackPayment = true;
+          }
+        }
+      );
+    },
+    //跳转黑名单列表
+    go_non_payment() {
+      this.$router.push('/blackPayment');
     }
   },
   components: {
@@ -759,5 +800,62 @@ export default {
   width: 1.5rem;
   height: 1.5rem;
   margin-bottom: .25rem;
+}
+
+
+/*黑名单*/
+
+.non_payment {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+.paymen {
+  width: 80%;
+  height: auto;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.paymen_pic {
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+  height: 5rem;
+  background: #f76149;
+  z-index: 1;
+  border-radius: 5px 5px 0 0;
+}
+
+.paymen_pic img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.paymen_p {
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  color: #333;
+}
+
+.repayment {
+  width: 60%;
+  padding: 2px 0;
+  font-size: 0.875rem;
+  margin: 1rem auto;
+  text-align: center;
+  background: #f76149;
+  color: #fff;
+  border-radius: 5px;
+  letter-spacing: 2px;
 }
 </style>

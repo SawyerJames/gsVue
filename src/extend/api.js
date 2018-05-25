@@ -39,5 +39,11 @@ const API = {
   // 常见问题：
   getFAQ: url + 'index/more/faq',
   getFAQDetail: url + 'index/more/faqDetails',
+  // 黑名单
+  checkBlackUser: url + 'index/user/checkBlackUser',
+  // 黑名单列表
+  blackUserPayment: url + 'parking/Payment_Records/blackUserPayment',
+  // 黑名单人员还款
+  blackUserPay: url + ''
 };
 export default API;

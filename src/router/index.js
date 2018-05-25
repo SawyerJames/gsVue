@@ -37,6 +37,8 @@ import complaintMsg from '../views/complaint/complaintMsg'
 import complaintType from '../views/complaint/complaintType'
 // 404
 import firstPage from '../views/404.vue'
+//黑名单
+import blackPayment from '../views/center/blackPayment'
 
 Vue.use(Router)
 
@@ -172,6 +174,12 @@ export default new Router({
       path: '/business',
       name: 'business',
       component: business
+    },
+    //黑名单
+    {
+      path: '/blackPayment',
+      name: 'blackPayment',
+      component: blackPayment
     }
   ]
 })
