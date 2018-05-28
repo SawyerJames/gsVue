@@ -169,12 +169,6 @@ export default new Router({
       name: 'disclaimer',
       component: disclaimer
     },
-    // 已开通业务
-    {
-      path: '/business',
-      name: 'business',
-      component: business
-    },
     //黑名单
     {
       path: '/blackPayment',

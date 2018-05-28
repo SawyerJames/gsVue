@@ -42,8 +42,6 @@ const API = {
   // 黑名单
   checkBlackUser: url + 'index/user/checkBlackUser',
   // 黑名单列表
-  blackUserPayment: url + 'parking/Payment_Records/blackUserPayment',
-  // 黑名单人员还款
-  blackUserPay: url + ''
+  blackUserPayment: url + 'parking/Payment_Records/blackUserPayment'
 };
 export default API;

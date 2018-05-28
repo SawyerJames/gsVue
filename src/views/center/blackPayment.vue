@@ -17,7 +17,7 @@
           <p class="textRed list_site textRight">未支付</p>
         </div>
       </div>
-      <div class="confirm" v-if="payList.list.length != 0" @click="oneKeyPayment">一键还款</div>
+      <div class="confirm" v-if="payTrue" @click="oneKeyPayment">一键还款</div>
     </div>
   </div>
 </template>
@@ -28,6 +28,8 @@ export default {
     return {
       // 加载待缴费列表
       payList: {},
+      // 支付按钮
+      payTrue: false,
       // 报错弹窗
       errShow: false,
       errTxt: ''
@@ -41,31 +43,14 @@ export default {
       this.$api.blackUserPayment,
       function success(res) {
         that.payList = res.data.data;
+        that.payTrue = true;
       }
     )
   },
   methods: {
     // 一键还款，发起还款请求
     oneKeyPayment() {
-      let that = this;
-      this.$tools.PostDataToServer(
-        this,
-        this.$api.blackUserPay,
-        this.payList.merge_order,
-        function success(res) {
-          // 支付成功，返回首页，
-          that.$router.replace('/index');
-        },
-        function error(err) {
-          that.errShow = true;
-          that.errTxt = '支付失败，请重试'
-          var errLoading = setTimeout(function() {
-            that.errShow = false;
-            that.errTxt = '';
-            clearTimeout(errLoading);
-          }, 2000);
-        }
-      )
+      window.location = "https://gs.jltengfang.com/order/wxpay/mergeOrder?ordernum=" + this.payList.merge_order;
     }
   }
 }

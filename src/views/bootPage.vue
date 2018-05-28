@@ -3,11 +3,16 @@
     <errAlert :errShow="errShow" :errTxt="errTxt"></errAlert>
     <!-- 引导页样式 -->
     <div class="pageContentImg flexCol">
-      <img src="../assets/bootPage/logo.png" class="pageTopImg">
+      <div class="car">
+        <img src="../assets/bootPage/carBody.png" class="carBody">
+        <img src="../assets/bootPage/carWheel.png" class="carWheel_left">
+        <img src="../assets/bootPage/carWheel.png" class="carWheel_right">
+      </div>
       <img src="../assets/bootPage/title.png" class="pageTopTitle">
       <img src="../assets/bootPage/sign.png" class="pageTopSign">
     </div>
     <img src="../assets/bootPage/bottomBg.png" class="pageBottomImg">
+    <p class="loadingSign">正在加载中...</p>
   </div>
 </template>
 <script>
@@ -86,12 +91,6 @@ export default {
   align-items: center;
 }
 
-.pageTopImg {
-  width: auto;
-  height: 4rem;
-  margin-bottom: 3rem;
-}
-
 .pageTopTitle {
   height: 2rem;
   margin-bottom: 1rem;
@@ -99,5 +98,57 @@ export default {
 
 .pageTopSign {
   height: 1.5rem;
+}
+
+
+/*车*/
+
+.car {
+  width: 6.25rem;
+  height: auto;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.carBody {
+  width: 100%;
+  height: 3.375rem;
+}
+
+.carWheel_left,
+.carWheel_right {
+  width: 1.5625rem;
+  height: 1.5625rem;
+  position: absolute;
+  z-index: 1;
+  bottom: -0.3125rem;
+  animation: carWheel 2s linear infinite;
+}
+
+.carWheel_left {
+  left: 0.6875rem;
+}
+
+.carWheel_right {
+  right: 0.5rem;
+}
+
+@keyframes carWheel {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.loadingSign {
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  position: fixed;
+  bottom: 3.75rem;
+  width: 100%;
+  text-align: center;
 }
 </style>

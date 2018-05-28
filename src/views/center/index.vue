@@ -22,7 +22,6 @@
             <div class="user_Flag_content flexCol">
               <span class="nick_name">{{userInfo.nickname}}</span>
               <span class="car_number">车牌号：{{userInfo.car_number}}</span>
-              <!--  <span class="phone">电话：{{userInfo.phone}}</span> -->
             </div>
           </div>
         </div>
@@ -426,10 +425,10 @@ export default {
 
 .numberIconContent {
   min-width: 6.25rem;
-  height: 3.125rem;
-  line-height: 3.125rem;
-  top: -2.75rem;
-  right: -6.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  top: -1.5rem;
+  right: -3rem;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -441,7 +440,7 @@ export default {
 .numberIconContent span {
   position: absolute;
   z-index: 1;
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   margin-top: -2px;
   display: block;
   color: #ea4e3d;
