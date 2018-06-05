@@ -36,8 +36,7 @@
             <!-- 已绑定其他信息 -->
             <div class="user_Flag_content flexCol">
               <span class="nick_name">{{userInfo.nickname}}</span>
-              <span class="car_number" v-if="blackPayment">车牌号：您有订单未处理</span>
-              <span class="car_number" v-else>车牌号：{{userInfo.car_number}}</span>
+              <span class="car_number">车牌号：{{userInfo.car_number}}</span>
             </div>
           </div>
         </div>
@@ -55,7 +54,7 @@
             <span>{{registerNumber}}人已绑定</span>
           </div>
           <!-- 未绑定时下半部分 -->
-          <span class="user_noFlag_sign sign">绑定后您将享受无感付更高水平的服务</span>
+          <span class="user_noFlag_sign sign">绑定后您将享受小K出行更高水平的服务</span>
         </router-link>
       </div>
     </div>
@@ -95,8 +94,8 @@
     <div class="mask" v-if="tutoriaWin && userFlag == 0 && userCheck == 0"></div>
     <div class="tutorialWin" v-if="tutoriaWin && userFlag == 0 && userCheck == 0">
       <div class="tutoriaContent borderBox">
-        <p class="tutorTitle">无感付介绍</p>
-        <p>感谢您使用无感付，绑定后即可在试点站享受无感支付。</p>
+        <p class="tutorTitle">小K出行介绍</p>
+        <p>感谢您使用小K出行，绑定后即可在试点站享受无感支付。</p>
         <p class="titleSign">——◆开通使用◆——</p>
         <p><span class="p_sign">第一步</span>、输入您的手机号，获取验证码并输入，点击下一步。</p>
         <p><span class="p_sign">第二步</span>、上传您的行驶证正反面，点击下一步。</p>
@@ -237,7 +236,7 @@ export default {
   },
   activated() {
     let that = this;
-    document.title = '无感付';
+    document.title = '小K出行';
     // 获取最新公告
     this.$tools.GetDataFromServer(
       this,
@@ -586,7 +585,7 @@ export default {
   position: absolute;
   z-index: 1;
   font-size: 0.75rem;
-  margin-top: -2px;
+/*  margin-top: -0.125rem;*/
   display: block;
   color: #ea4e3d;
   font-weight: bold;

@@ -73,12 +73,12 @@
     <!-- 联系方式绑定 -->
     <div class="register-model flexRow">
       <span class="register-title">联系方式</span>
-      <input type="number" maxlength="11" class="register-msg" v-model="user.phone" placeholder="请输入您的联系方式" />
+      <input type="number" maxlength="11" class="register-msg" @change="getPhoneNumber" placeholder="请输入您的联系方式" />
     </div>
     <!-- 输入验证码 -->
     <div class="register-model flexRow">
       <span class="register-title">验证号码</span>
-      <input type="tel" name="code" maxlength="6" placeholder="请输入验证码" v-model.trim="user.code"></input>
+      <input type="number" name="code" maxlength="6" class="register-msg" placeholder="请输入验证码" @change="getCodeNumber"></input>
       <!-- 获取验证码按钮 -->
       <button type="button" @click="getCode()" :disabled="!showVer" class="verificationBtn borderBox">
         <span v-show="showVer">获取验证码</span>
@@ -132,7 +132,7 @@
         <input class="agreeCheckbox" type="checkbox" v-model="checked" />
         <span>我已阅读并同意</span>
         <!-- </div> -->
-        <router-link tag="span" to="/registerTxt" class="registerTxt">&lt;&lt;无感付用户协议&gt;&gt;</router-link>
+        <router-link tag="span" to="/registerTxt" class="registerTxt">&lt;&lt;小K出行用户协议&gt;&gt;</router-link>
       </div>
     </div>
     <!-- 绑定按钮 -->
@@ -195,7 +195,6 @@ export default {
       isSelectl: false,
       isSelectx: false,
       isDisable: false,
-      isUp: false,
       isDown: false,
       isDisable: false,
       keyboardShow: false,
@@ -276,7 +275,6 @@ export default {
     //监听是否为普通车牌最后一位
     numFive: function(val) {
       if (!this.checkbox && val) {
-        this.isUp = false;
         this.isDown = true;
         this.keyboardShow = false;
         this.isNumFive = false;
@@ -285,7 +283,6 @@ export default {
     //监听是否为新能源车牌最后一位
     numSix: function(val) {
       if (this.checkbox && val) {
-        this.isUp = false;
         this.isDown = true;
         this.keyboardShow = false;
         this.isNumSix = false;
@@ -293,6 +290,17 @@ export default {
     }
   },
   methods: {
+    // 获取手机号和验证码
+    getPhoneNumber(e) {
+      this.isDown = true;
+      this.keyboardShow = false;
+      this.user.phone = e.target.value;
+    },
+    getCodeNumber(e) {
+      this.isDown = true;
+      this.keyboardShow = false;
+      this.user.code = e.target.value;
+    },
     // 判断新老用户,拉取信息
     getOldUser() {
       let that = this;
@@ -399,79 +407,76 @@ export default {
     },
     // 车牌号第一位输入框选择
     btnClickYue() {　　　　
-      this.isYue = true;　　　　
-      this.isA = false;　　　　
-      this.isUp = true;　　　　
-      this.isNumOne = false;　　　　
-      this.isNumTwo = false;　　　　
-      this.isNumThree = false;　　　　
-      this.isNumFour = false;　　　　
-      this.isNumFive = false;　　　　
-      this.isNumSix = false;　　　　
-      this.keyboardShow = true;　　　　
-      this.keyboard = 'txt';　　　　
+      this.isYue = true;
+      this.isA = false;
+      this.isNumOne = false;
+      this.isNumTwo = false;
+      this.isNumThree = false;
+      this.isNumFour = false;
+      this.isNumFive = false;
+      this.isNumSix = false;
+      this.keyboardShow = true;
+      this.keyboard = 'txt';
       this.key = 1;
     },
     // 车牌号第二位输入框选择
     btnClickA() {　　　　
-      this.isDisable = true;　　　　
-      this.isA = true;　　　　
-      this.isYue = false;　　　　
-      this.isUp = true;　　　　
-      this.isNumOne = false;　　　　
-      this.isNumTwo = false;　　　　
-      this.isNumThree = false;　　　　
-      this.isNumFour = false;　　　　
-      this.isNumFive = false;　　　　
-      this.isNumSix = false;　　　　
-      this.keyboardShow = true;　　　　
-      this.keyboard = 'num';　　　　
-      this.key = 2;　　
+      this.isDisable = true;
+      this.isA = true;
+      this.isYue = false;
+      this.isNumOne = false;
+      this.isNumTwo = false;
+      this.isNumThree = false;
+      this.isNumFour = false;
+      this.isNumFive = false;
+      this.isNumSix = false;
+      this.keyboardShow = true;
+      this.keyboard = 'num';
+      this.key = 2;
     },
     // 车牌号后五位或六位输入框选择
-    btnClickNum(name) {　　　　
-      if (this.isSelectl) {　　　　　　
-        this.isDisable = true;　　　　
-      } else {　　　　　　
-        this.isDisable = false;　　　　
-      }　　　　
-      this.keyboard = 'num';　　　　
-      this.keyboardShow = true;　　　　
-      this.isYue = false;　　　　
-      this.isA = false;　　　　
-      this.isNumOne = false;　　　　
-      this.isNumTwo = false;　　　　
-      this.isNumThree = false;　　　　
-      this.isNumFour = false;　　　　
-      this.isNumFive = false;　　　　
-      this.isNumSix = false;　　　　
-      this.isUp = true;　　　　
-      if (name === 'one') {　　　　　　
-        this.isNumOne = true;　　　　　　
-        this.key = 3;　　　　
-      } else if (name === 'two') {　　　　　　
-        this.isNumTwo = true;　　　　　　
-        this.key = 4;　　　　
-      } else if (name === 'three') {　　　　　　
-        this.isNumThree = true;　　　　　　
-        this.key = 5;　　　　
-      } else if (name === 'four') {　　　　　　
-        this.isNumFour = true;　　　　　　
-        this.key = 6;　　　　
-      } else if (name === 'five') {　　　　　　
-        this.isNumFive = true;　　　　　　
-        this.key = 7;　　　　
-      } else if (name === 'six') {　　　　　　
-        this.isNumSix = true;　　　　　
-        this.key = 8;　　　　
-      }　　　　
-      if (name === 'five' || name === 'six') {　　　　　　
-        this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳', '学'];　　　　　　
-        this.noneBottom = [''];　　　　
-      } else {　　　　　　
-        this.carNumBottom = ['W', 'X', 'Y', 'Z'];　　　　　　
-        this.noneBottom = ['', '', '', ''];　　　　
-      }　　
+    btnClickNum(name) {
+      if (this.isSelectl) {
+        this.isDisable = true;
+      } else {
+        this.isDisable = false;
+      }
+      this.keyboard = 'num';
+      this.keyboardShow = true;
+      this.isYue = false;
+      this.isA = false;
+      this.isNumOne = false;
+      this.isNumTwo = false;
+      this.isNumThree = false;
+      this.isNumFour = false;
+      this.isNumFive = false;
+      this.isNumSix = false;
+      if (name === 'one') {
+        this.isNumOne = true;
+        this.key = 3;
+      } else if (name === 'two') {
+        this.isNumTwo = true;
+        this.key = 4;
+      } else if (name === 'three') {
+        this.isNumThree = true;　　
+        this.key = 5;
+      } else if (name === 'four') {
+        this.isNumFour = true;
+        this.key = 6;
+      } else if (name === 'five') {
+        this.isNumFive = true;
+        this.key = 7;
+      } else if (name === 'six') {
+        this.isNumSix = true;
+        this.key = 8;
+      }
+      if (name === 'five' || name === 'six') {
+        this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳', '学'];
+        this.noneBottom = [''];
+      } else {
+        this.carNumBottom = ['W', 'X', 'Y', 'Z'];
+        this.noneBottom = ['', '', '', ''];
+      }
     },
     // 键盘点击完成 或 取消
     completeClick() {
@@ -483,56 +488,55 @@ export default {
       this.isNumFour = false;
       this.isNumFive = false;
       this.isNumSix = false;
-      this.isUp = false;
       this.isDown = true;
       this.keyboardShow = false;
     },
     // 键盘选择显示
-    btnWordClick(rows, index, i) {　　　　
-      this.selected = i;　　　　
-      if (this.key === 1) {　　　　　　
-        if (this.areaName === '临') {　　　　　　　　
-          this.areaLetter = '';　　
-          this.numOne = '';　　
-          this.numTwo = '';　　
-          this.numThree = '';　　
-          this.numFour = '';　　
-          this.numFive = '';　　
+    btnWordClick(rows, index, i) {
+      this.selected = i;
+      if (this.key === 1) {
+        if (this.areaName === '临') {
+          this.areaLetter = '';
+          this.numOne = '';
+          this.numTwo = '';
+          this.numThree = '';
+          this.numFour = '';
+          this.numFive = '';
           this.numSix = '';
         }
-        this.areaName = i;　　　　　　
-        this.isSelectl = false;　　　　　　
-        document.getElementById('letter').click();　　　　
-      } else if (this.key === 2) {　　　　　　
-        this.areaLetter = i;　　　　　　
-        document.getElementById('numOne').click();　　　　
-      } else if (this.key === 3) {　　　　　　
-        this.numOne = i;　　　　　　
-        document.getElementById('numTwo').click();　　　　
-      } else if (this.key === 4) {　　　　　　
-        this.numTwo = i;　　　　　　
-        document.getElementById('numThree').click();　　　　
-      } else if (this.key === 5) {　　　　　　
-        this.numThree = i;　　　　　　
-        document.getElementById('numFour').click();　　　　
-      } else if (this.key === 6) {　　　　　　
-        this.numFour = i;　　　　　　
-        document.getElementById('numFive').click();　　　　
-      } else if (this.key === 7) {　　　　　　
-        this.numFive = i;　　　　　　
-        if (this.checkbox) {　　　　　　　　
-          document.getElementById('numSix').click();　　　　　　
-        }　　　　
-      } else if (this.key === 8) {　　　　　　
-        this.numSix = i;　　　　
-      }　　　　
-      if (this.key === 7 || this.key === 8) {　　　　　　
-        this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳', '学'];　　　　　　
-        this.noneBottom = [''];　　　　
-      } else if (this.key === 3 || this.key === 4 || this.key === 5 || this.key === 6) {　　　　　　
-        this.carNumBottom = ['W', 'X', 'Y', 'Z'];　　　　　　
-        this.noneBottom = ['', '', '', ''];　　　　
-      }　　
+        this.areaName = i;
+        this.isSelectl = false;
+        document.getElementById('letter').click();
+      } else if (this.key === 2) {
+        this.areaLetter = i;
+        document.getElementById('numOne').click();
+      } else if (this.key === 3) {
+        this.numOne = i;
+        document.getElementById('numTwo').click();
+      } else if (this.key === 4) {
+        this.numTwo = i;
+        document.getElementById('numThree').click();
+      } else if (this.key === 5) {
+        this.numThree = i;
+        document.getElementById('numFour').click();
+      } else if (this.key === 6) {
+        this.numFour = i;
+        document.getElementById('numFive').click();
+      } else if (this.key === 7) {
+        this.numFive = i;
+        if (this.checkbox) {
+          document.getElementById('numSix').click();
+        }
+      } else if (this.key === 8) {
+        this.numSix = i;
+      }
+      if (this.key === 7 || this.key === 8) {
+        this.carNumBottom = ['W', 'X', 'Y', 'Z', '港', '澳', '学'];
+        this.noneBottom = [''];
+      } else if (this.key === 3 || this.key === 4 || this.key === 5 || this.key === 6) {
+        this.carNumBottom = ['W', 'X', 'Y', 'Z'];
+        this.noneBottom = ['', '', '', ''];
+      }
     },
     // 车牌第一位选择‘临’,’新‘后的键盘显示
     btnBottomClick(val) {
@@ -566,30 +570,30 @@ export default {
       }
     },
     // 键盘最后一行字母点击事件
-    btnBottomNumClick(i) {　　　　
-      this.selected = i;　　　　
-      if (this.key === 2) {　　　　　　
-        this.areaLetter = i;　　　　　　
-        document.getElementById('numOne').click();　　　　
-      } else if (this.key === 3) {　　　　　　
-        this.numOne = i;　　　　　　
-        document.getElementById('numTwo').click();　　　　
-      } else if (this.key === 4) {　　　　　　
-        this.numTwo = i;　　　　　　
-        document.getElementById('numThree').click();　　　　
-      } else if (this.key === 5) {　　　　　　
-        this.numThree = i;　　　　　　
-        document.getElementById('numFour').click();　　　　
-      } else if (this.key === 6) {　　　　　　
-        this.numFour = i;　　　　　　
-        document.getElementById('numFive').click();　　　　
-      } else if (this.key === 7) {　　　　　　
-        this.numFive = i;　　　　　　
-        if (this.checkbox) {　　　　　　　　
-          document.getElementById('numSix').click();　　　　　　
-        }　　　　
-      } else if (this.key === 8) {　　　　　　
-        this.numSix = i;　　　　
+    btnBottomNumClick(i) {
+      this.selected = i;
+      if (this.key === 2) {
+        this.areaLetter = i;
+        document.getElementById('numOne').click();
+      } else if (this.key === 3) {
+        this.numOne = i;
+        document.getElementById('numTwo').click();
+      } else if (this.key === 4) {
+        this.numTwo = i;
+        document.getElementById('numThree').click();
+      } else if (this.key === 5) {
+        this.numThree = i;
+        document.getElementById('numFour').click();
+      } else if (this.key === 6) {
+        this.numFour = i;
+        document.getElementById('numFive').click();
+      } else if (this.key === 7) {
+        this.numFive = i;
+        if (this.checkbox) {
+          document.getElementById('numSix').click();
+        }
+      } else if (this.key === 8) {
+        this.numSix = i;
       }
     },
     // 键盘点击‘删除图标’
@@ -651,10 +655,14 @@ export default {
                 that.loading = false;
                 // 跳转页面
                 if (res.data.state == 0) {
-                  that.validate = '欢迎回来~';
-                  setTimeout(function() {
-                    that.validate = '';
+                  that.errShow = true;
+                  that.errTxt = '欢迎回来~';
+                  localStorage.setItem('bindSuccess', true);
+                  var errLoading = setTimeout(function() {
+                    that.errShow = false;
+                    that.errTxt = '';
                     location.replace(document.referrer);
+                    clearTimeout(errLoading);
                   }, 2000);
                 } else {
                   that.validate = res.data.msg;
@@ -674,7 +682,7 @@ export default {
               // 新能源行驶证
               if (this.checkbox == true) {
                 if (this.numSix == '') {
-                  that.validate = '新能源车牌号格式不对'
+                  that.validate = '新能源车牌号格式不正确'
                   setTimeout(function() {
                     that.validate = ''
                   }, 2000);
@@ -694,9 +702,11 @@ export default {
                         if (res.data.state == 0) {
                           that.errShow = true;
                           that.errTxt = '恭喜，绑定成功';
+                          localStorage.setItem('bindSuccess', true);
                           var errLoading = setTimeout(function() {
                             that.errShow = false;
-                            that.errTxt = ''
+                            that.errTxt = '';
+                            location.replace(document.referrer);
                             clearTimeout(errLoading);
                           }, 2000);
                         }
@@ -743,10 +753,14 @@ export default {
                       that.loading = false;
                       // 接口调通
                       if (res.data.state == 0) {
-                        that.validate = res.data.data;
-                        setTimeout(function() {
-                          that.validate = ''
+                        that.errShow = true;
+                        that.errTxt = '恭喜，绑定成功';
+                        var errLoading = setTimeout(function() {
+                          that.errShow = false;
+                          that.errTxt = '';
+                          localStorage.setItem('bindSuccess', true);
                           location.replace(document.referrer);
+                          clearTimeout(errLoading);
                         }, 2000);
                       }
                       // 如果信息不对
@@ -754,7 +768,7 @@ export default {
                         that.loading = false;
                         that.validate = res.data.msg;
                         setTimeout(function() {
-                          that.validate = ''
+                          that.validate = '';
                         }, 2000);
                       }
                     },
@@ -777,7 +791,7 @@ export default {
                 }
               }
             } else {
-              that.validate = '行驶证信息不完全'
+              that.validate = '车牌号信息不完全'
               setTimeout(function() {
                 that.validate = ''
               }, 2000);
@@ -916,8 +930,8 @@ export default {
 /*车牌颜色中的车牌号容器*/
 
 .carColorContainer {
-  width: 8.3rem;
-  height: 2.5rem;
+  width: 8.375rem;
+  height: 2.375rem;
   border-radius: .25rem;
   border: 1px solid #1C63E1;
   background: #fff;
@@ -928,7 +942,7 @@ export default {
 
 .carColor-textContent {
   width: 8rem;
-  height: 2.2rem;
+  height: 2rem;
   border-radius: .25rem;
   background: #1C63E1;
   justify-content: center;
@@ -956,8 +970,8 @@ export default {
 .carColorType_2,
 .carColorType_3,
 .carColorType_4 {
-  width: 4.2rem;
-  height: 1.7rem;
+  width: 4.25rem;
+  height: 1.75rem;
   border-radius: .25rem;
   justify-content: center;
   -ms-align-items: center;

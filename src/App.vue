@@ -13,7 +13,7 @@ import './css/common.css'
 export default {
   name: 'app',
   beforeCreate() {
-    document.title = '无感付';
+    document.title = '小K出行';
     // 同步ajax获取用户认证状态
     let that = this;
     let xhr = new XMLHttpRequest();

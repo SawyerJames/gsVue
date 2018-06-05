@@ -98,7 +98,7 @@
         <!-- 尾部 -->
         <div class="confirmWin_footer flexRow">
           <span class="confirm_cel" @click="conCancelBtn">取消</span>
-          <span class="confirm_sub">{{conSubBtn}}</span>
+          <span class="confirm_sub" @click="conSubmitBtn">{{conSubBtn}}</span>
         </div>
       </div>
     </div>
@@ -311,8 +311,11 @@ export default {
     showConfirmPhone() {
       this.conMask = true;
       this.conTitle = '客服电话';
-      this.conContent = '<a href="tel:13224381123">技术客服：13224381123</a><a href="tel:17790063004">产品客服：17790063004</a><a href="tel:0431-81872579">公司客服：0431-81872579</a>';
-      this.conSubBtn = '点击号码即可拨打';
+      this.conContent = '<a href="tel:0431-81872579">公司客服：0431-81872579</a>';
+      this.conSubBtn = '拨打';
+    },
+    conSubmitBtn() {
+      window.location.href = "0431-81872579";
     },
     conCancelBtn() {
       this.conMask = false;

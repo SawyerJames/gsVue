@@ -16,9 +16,9 @@
           <div class="pay_center">
             <ul>
               <li class="flexRow pay_li" v-if="pay_hide"><span>付款方式</span><span>{{payment}}</span></li>
-              <li class="flexRow pay_li"><span>商品说明</span><span>微信余额</span></li>
-              <li class="flexRow pay_li"><span>账单分类</span><span>微信余额</span></li>
-              <li class="flexRow pay_li"><span>积分奖励</span><span>微信余额</span></li>
+              <li class="flexRow pay_li"><span>商品说明</span><span>高速通行</span></li>
+              <li class="flexRow pay_li"><span>账单分类</span><span>高速通行</span></li>
+              <li class="flexRow pay_li"><span>积分奖励</span><span>0</span></li>
             </ul>
           </div>
           <div class="pay_center">
@@ -66,7 +66,7 @@
         <!-- 尾部 -->
         <div class="confirmWin_footer flexRow">
           <span class="confirm_cel" @click="conCancelBtn">取消</span>
-          <span class="confirm_sub">{{conSubBtn}}</span>
+          <span class="confirm_sub" @click="conSubmitBtn">{{conSubBtn}}</span>
         </div>
       </div>
     </div>
@@ -130,11 +130,14 @@ export default {
     showConfirmPhone() {
       this.conMask = true;
       this.conTitle = '客服电话';
-      this.conContent = '<a href="tel:13224381123">技术客服：13224381123</a><a href="tel:17790063004">产品客服：17790063004</a><a href="tel:0431-81872579">公司客服：0431-81872579</a>';
-      this.conSubBtn = '点击号码即可拨打';
+      this.conContent = '<a href="tel:0431-81872579">公司客服：0431-81872579</a>';
+      this.conSubBtn = '拨打';
     },
     conCancelBtn() {
       this.conMask = false;
+    },
+    conSubmitBtn() {
+      window.location.href = "0431-81872579";
     },
     // 获取订单详细数据
     getPayDetail() {

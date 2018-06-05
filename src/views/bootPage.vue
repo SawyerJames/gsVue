@@ -13,6 +13,20 @@
     </div>
     <img src="../assets/bootPage/bottomBg.png" class="pageBottomImg">
     <p class="loadingSign">正在加载中...</p>
+    <!-- 绑定成功显示的开通路线弹窗 -->
+    <div class="mask" v-if="bindSign"></div>
+    <div v-if='bindSign' class="tutorialWin">
+      <div class="tutoriaContent borderBox">
+        <p class="tutorTitle">开通路线</p>
+        <p class="titleSign">——◆当前适用地点◆——</p>
+        <p>长春市长春东收费站01、10车道</p>
+        <p>长春市龙嘉机场高速收费站03、10车道</p>
+        <p>长春市龙嘉机场高速收费站03、10车道。</p>
+      </div>
+      <div class="tutoriaFooter flexRow">
+        <span @click="getIndex">我知道了</span>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -23,13 +37,31 @@ export default {
       // 报错弹窗
       errShow: false,
       errTxt: '',
+      // 绑定页跳转标志
+      bindSign: false
     }
   },
   mounted() {
     this.$nextTick(function() {
+      document.title = '欢迎使用小K出行';
+      // 判断用户是否从绑定页跳转：用户绑定后跳转
+      if (localStorage.getItem('bindSuccess')) {
+        this.bindSign = true;
+        // 试图获取用户绑定状态，并存储在缓存中
+        this.getUserBind();
+      }
+      // 用户非绑定页跳转
+      else {
+        this.bindSign = false;
+        // 试图获取用户绑定状态，并存储在缓存中
+        this.getUserBind();
+      }
+    });
+  },
+  methods: {
+    // 试图获取用户绑定状态，并存储在缓存中
+    getUserBind() {
       let that = this;
-      document.title = '欢迎使用无感付';
-      // 试图获取用户绑定状态，并存储在缓存中
       this.$tools.GetDataFromServer(
         this,
         this.$api.BootPage,
@@ -42,18 +74,26 @@ export default {
             } else {
               that.$tools.SetCookie('userFlag', 0, 24);
             }
+            // 如果非绑定页来的
+            if (!that.bindSign) {
+              // 2s后跳转首页
+              setTimeout(function() {
+                that.$router.replace('index');
+              }, 1500);
+            }
           }
-          // 2s后跳转首页
-          setTimeout(function() {
-            that.$router.replace('index');
-          }, 1500);
         },
         function error(err) {
           that.errShow = true;
           that.errTxt = '网络错误,请刷新重试';
         }
-      )
-    })
+      );
+    },
+    getIndex() {
+      // 清除缓存 & 跳转首页
+      localStorage.removeItem('bindSuccess');
+      this.$router.replace('/index');
+    }
   }
 }
 </script>
@@ -121,7 +161,7 @@ export default {
   height: 1.5625rem;
   position: absolute;
   z-index: 1;
-  bottom: -0.3125rem;
+  bottom: -0.2rem;
   animation: carWheel 2s linear infinite;
 }
 
@@ -150,5 +190,65 @@ export default {
   bottom: 3.75rem;
   width: 100%;
   text-align: center;
+}
+
+
+/*开通站点*/
+
+.tutorialWin {
+  position: fixed;
+  width: 80%;
+  height: auto;
+  font-size: .875rem;
+  padding: 1rem 0;
+  margin-left: -40%;
+  border-radius: .25rem;
+  background: #fff;
+  top: 18%;
+  left: 50%;
+  z-index: 999;
+}
+
+.tutoriaContent {
+  width: 100%;
+  height: 90%;
+  padding: 0 1rem 1rem;
+  border-radius: .25rem .25rem 0 0;
+}
+
+.tutoriaContent p {
+  margin-top: 1rem;
+}
+
+.tutorTitle {
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+.titleSign {
+  width: 100%;
+  text-align: center;
+  color: #f8624a;
+  font-weight: bold;
+}
+
+.p_sign {
+  color: #f8624a;
+  font-weight: bold;
+}
+
+.tutoriaFooter {
+  height: 10%;
+  color: #f8624a;
+  margin-bottom: .5rem;
+  font-size: 1rem;
+  border-radius: 0 0 .25rem .25rem;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
 }
 </style>

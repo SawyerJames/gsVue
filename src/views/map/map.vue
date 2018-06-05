@@ -31,7 +31,7 @@ export default {
     }
   },
   activated() {
-    document.title = '无感付-智慧高速';
+    document.title = '小K出行-智慧高速';
   },
   mounted() {
     let h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;

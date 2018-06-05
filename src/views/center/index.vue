@@ -3,6 +3,8 @@
     <errAlert :errShow="errShow" :errTxt="errTxt"></errAlert>
     <!-- alert组件 -->
     <alert :alert="alert" :title="title" :text="text"></alert>
+    <!-- 验证提示 -->
+    <h1 class="validate" v-if="validate">{{validate}}</h1>
     <!-- 用户信息 -->
     <div class="topIndex">
       <!-- 个人信息栏: 1=>已绑定 -->
@@ -39,7 +41,7 @@
             <span>{{registerNumber}}人已绑定</span>
           </div>
           <!-- 未绑定时下半部分 -->
-          <span class="user_noFlag_sign sign">绑定后您将享受无感付更高水平的服务</span>
+          <span class="user_noFlag_sign sign">绑定后您将享受小K出行更高水平的服务</span>
         </router-link>
       </div>
     </div>
@@ -136,6 +138,7 @@ export default {
   name: 'centerIndex',
   data() {
     return {
+      validate: '',
       // 报错弹窗
       errShow: false,
       errTxt: '',
@@ -249,8 +252,8 @@ export default {
     showConfirmPhone() {
       this.conMask = true;
       this.conTitle = '客服电话';
-      this.conContent = '<a href="tel:13224381123">技术客服：13224381123</a><a href="tel:17790063004">产品客服：17790063004</a><a href="tel:0431-81872579">公司客服：0431-81872579</a>';
-      this.conSubBtn = '点击号码即可拨打';
+      this.conContent = '<a href="tel:0431-81872579">公司客服：0431-81872579</a>';
+      this.conSubBtn = '拨打';
       this.conType = 1;
     },
     conCancelBtn() {
@@ -270,16 +273,28 @@ export default {
             if (res.data.state == 0) {
               location.replace(document.referrer);
             }
+            // 有未支付订单
+            if (res.data.state == 621) {
+              that.validate = res.data.msg;
+              setTimeout(function() {
+                that.validate = '';
+              }, 2000);
+            }
           },
           function error(err) {
-            that.errTxt = '出现错误，请重新解绑'
+            that.errShow = true;
+            that.errTxt = '出现错误，请重新解绑';
             var errLoading = setTimeout(function() {
               that.errShow = false;
-              that.errTxt = ''
+              that.errTxt = '';
               clearTimeout(errLoading);
             }, 2000);
           }
         );
+      }
+      // 拨打电话
+      if (this.conType == 1) {
+        window.location.href = "0431-81872579";
       }
     },
     // 跳转首页
@@ -441,7 +456,7 @@ export default {
   position: absolute;
   z-index: 1;
   font-size: 0.75rem;
-  margin-top: -2px;
+  /*margin-top: -0.125rem;*/
   display: block;
   color: #ea4e3d;
   font-weight: bold;

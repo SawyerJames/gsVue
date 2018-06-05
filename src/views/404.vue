@@ -16,7 +16,7 @@ export default {
   name: '404',
   mounted() {
     this.$nextTick(function() {
-      document.title = '敬请期待无感付';
+      document.title = '敬请期待小K出行';
     })
   }
 }

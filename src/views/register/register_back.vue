@@ -47,7 +47,7 @@
         <input class="agreeCheckbox" type="checkbox" v-model="checked" />
         <span>我已阅读并同意</span>
         <!-- </div> -->
-        <router-link tag="span" to="/registerTxt" class="registerTxt">&lt;&lt;无感付用户协议&gt;&gt;</router-link>
+        <router-link tag="span" to="/registerTxt" class="registerTxt">&lt;&lt;小K出行用户协议&gt;&gt;</router-link>
       </div>
     </div>
     <!-- 绑定按钮 -->

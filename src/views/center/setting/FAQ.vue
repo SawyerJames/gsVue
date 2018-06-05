@@ -143,8 +143,6 @@ export default {
   width: 100%;
   display: block;
   font-size: .875rem;
-  color: #757575;
-  font-weight: bold;
 }
 
 
